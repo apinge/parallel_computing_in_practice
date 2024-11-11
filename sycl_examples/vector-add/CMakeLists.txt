@@ -5,9 +5,9 @@ else() # Windows
     # Force CMake to use icx-cl rather than the default C++ compiler/linker 
     # (needed on Windows only)
     include (CMakeForceCompiler)
-    include_directories("C:/Program Files (x86)/Intel/oneAPI/2024.2/include")
-    link_directories("C:/Program Files (x86)/Intel/oneAPI/2024.2/lib")
-    CMAKE_FORCE_CXX_COMPILER ("C:/Program Files (x86)/Intel/oneAPI/2024.2/bin/icx-cl.exe" IntelDPCPP)
+    include_directories("C:/Program Files (x86)/Intel/oneAPI/compiler/latest/include")
+    link_directories("C:/Program Files (x86)/Intel/oneAPI/compiler/latest/lib")
+    CMAKE_FORCE_CXX_COMPILER ("C:/Program Files (x86)/Intel/oneAPI/compiler/latest/bin/icx-cl.exe" IntelDPCPP)
     include (Platform/Windows-Clang)
 endif()
 
