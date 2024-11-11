@@ -3,14 +3,11 @@
 # given to cmake
 # e.g. if cmake is called with -DUSM=1, the USM
 # source code will be compiled
-if(DEFINED USM AND (NOT(USM EQUAL 0)))
+#if(DEFINED USM AND (NOT(USM EQUAL 0)))
     message(STATUS "Using the USM variant.")
     set(SOURCE_FILE vector-add-usm.cpp)
     set(TARGET_NAME vector-add-usm)
-else()
-    set(SOURCE_FILE vector-add-buffers.cpp)
-    set(TARGET_NAME vector-add-buffers)
-endif()
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # This is a Windows-specific flag that enables exception handling in host code
