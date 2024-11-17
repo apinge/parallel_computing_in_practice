@@ -19,7 +19,7 @@ main()
         auto out = sycl::stream(1024, /* maximum size of output per kernel invocation */
                       256, /* maximum size before flushing the stream */
                       cgh);
-        // FIXME create a single task in the command group handler
+        // create a single task in the command group handler
         cgh.single_task([=]() {
             /* task code */
             out << "Hello from within a task!" << sycl::endl;// Here isnot 
