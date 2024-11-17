@@ -28,6 +28,7 @@ If you find a GPU device but no Level Zero backend, and only the OpenCL backend 
 
 and then restarting the oneAPI setvars script. Then, you can find that the GPU has both OpenCL backend and Level Zero backend options available.
 ```
+C:\Program Files (x86)\Intel\oneAPI>setvars.bat
 C:\Program Files (x86)\Intel\oneAPI>sycl-ls
 [level_zero:gpu][level_zero:0] Intel(R) oneAPI Unified Runtime over Level-Zero, Intel(R) Arc(TM) Graphics 12.71.4 [1.3.29516]
 [opencl:gpu][opencl:0] Intel(R) OpenCL Graphics, Intel(R) Arc(TM) Graphics OpenCL 3.0 NEO  [31.0.101.5592]
