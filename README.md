@@ -16,12 +16,16 @@ Examples of deploying and computing with SYCL, OpenCL, Level Zero nd OpenMP on G
     - Intel® oneAPI Threading Building Blocks.
 
 3. Search for **Intel oneAPI Command Prompt for Intel 64 for Visual Studio 2022** in the Windows search bar,  
-![oneAPI command propmpt](figs/oneapi_cmd.png)
 
+<img src="figs/oneapi_cmd.png" alt="oneAPI command propmpt" width="500">
 
 or directly call the oneAPI `setvars.bat` (usually located in `C:\Program Files (x86)\Intel\oneAPI`), then type `sycl-ls` and press Enter to check your SYCL device and backend.
 If you find a GPU device but no Level Zero backend, and only the OpenCL backend is available, you may consider deleting the registry key `[HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\OpenCL]` 
-![export and remove ocl registry](figs/ocl_registry.png)
+
+<img src="figs/ocl_registry.png" alt="export and remove ocl registry" title="This is an example" width="500">
+
+
+
 and then restarting the oneAPI setvars script. Then, you can find that the GPU has both OpenCL backend and Level Zero backend options available.
 ```
 C:\Program Files (x86)\Intel\oneAPI>sycl-ls
