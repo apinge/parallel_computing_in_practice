@@ -47,8 +47,9 @@ C:\Program Files (x86)\Intel\oneAPI\compiler\latest\bin\compiler\clang.exe
 clang exposes more switches like `-emit-llvm`, which makes it easier to view the LLVM IR compared to icx.
 
 
+### Configuring the SYCL IntelliSense Environment in VSCode
 
-
+Please refer to [this link](https://github.com/apinge/parallel_computing_in_practice/tree/main/sycl_examples#configuring-the-intellisense-environment-in-vscode)
 
 ## Setting Up the Level Zero Development Environment on Windows
 You can directly find the release package at https://github.com/oneapi-src/level-zero. The release package does not include the runtime DLLs. You can build the runtime DLLs, such as `ze_loader.dll`, yourself.

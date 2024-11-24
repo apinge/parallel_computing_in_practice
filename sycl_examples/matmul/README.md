@@ -1,0 +1,1 @@
+In usm-range-matmul.cpp, the sycl::queue::submit function is not explicitly called, yet wait() is still used. Why is that?
