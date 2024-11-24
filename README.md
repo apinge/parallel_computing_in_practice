@@ -38,7 +38,7 @@ You can use the environment variable [**ONEAPI_DEVICE_SELECTOR**](https://github
 
 ### Enabling Clang in the oneAPI Compiler
 
-The oneAPI installation package includes tools such as clang, clang++, and other Clang utilities. By default, these are not used, but you can access them using specific commands `---include-intel-llvm`.
+The oneAPI installation package includes tools such as clang, clang++, and other Clang utilities. By default, these are not used, but you can access them using specific commands `--include-intel-llvm`.
 ```
 C:\Program Files (x86)\Intel\oneAPI>setvars.bat --include-intel-llvm
 C:\Program Files (x86)\Intel\oneAPI>where clang
