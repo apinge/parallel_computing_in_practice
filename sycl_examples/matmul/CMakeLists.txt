@@ -51,7 +51,6 @@ set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
 
 set(SOURCE_FILE1 usm-range-matmul.cpp)
 set(TARGET_NAME1 usm-range-matmul)
-
 # To compile in a single command:
 #    icpx -fsycl <file>.cpp -o <file>
 # CMake executes:
@@ -60,6 +59,29 @@ set(TARGET_NAME1 usm-range-matmul)
 add_executable(${TARGET_NAME1} ${SOURCE_FILE1})
 set_target_properties(${TARGET_NAME1} PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS}")
 set_target_properties(${TARGET_NAME1} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+
+set(SOURCE_FILE2 nd_range-matmul.cpp)
+set(TARGET_NAME2 nd_range-matmul)
+# To compile in a single command:
+#    icpx -fsycl <file>.cpp -o <file>
+# CMake executes:
+#    [compile] icpx -fsycl -o <file>.cpp.o -c <file>.cpp
+#    [link]    icpx -fsycl <file>.cpp.o -o <file>
+add_executable(${TARGET_NAME2} ${SOURCE_FILE2})
+set_target_properties(${TARGET_NAME2} PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS}")
+set_target_properties(${TARGET_NAME2} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+
+
+set(SOURCE_FILE3 usm-nd_range-matmul.cpp)
+set(TARGET_NAME3 usm-nd_range-matmul)
+# To compile in a single command:
+#    icpx -fsycl <file>.cpp -o <file>
+# CMake executes:
+#    [compile] icpx -fsycl -o <file>.cpp.o -c <file>.cpp
+#    [link]    icpx -fsycl <file>.cpp.o -o <file>
+add_executable(${TARGET_NAME3} ${SOURCE_FILE3})
+set_target_properties(${TARGET_NAME3} PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS}")
+set_target_properties(${TARGET_NAME3} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
 
 
 
