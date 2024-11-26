@@ -51,9 +51,9 @@ int main()
       accessor a { a_buf, cgh, read_only };
       accessor b { b_buf, cgh, read_only };
       accessor c { c_buf, cgh, write_only };
-     // auto out = sycl::stream(1024, /* maximum size of output per kernel invocation */
-      //                256, /* maximum size before flushing the stream */
-      //                cgh);
+      auto out = sycl::stream(1024, /* maximum size of output per kernel invocation */
+                      256, /* maximum size before flushing the stream */
+                     cgh);
       cgh.parallel_for(
         // Fuse an appropriate 2-dimensional range
         range{N,N}, [=](id<2> idx) {
@@ -63,8 +63,9 @@ int main()
         for(int k =0;k<N;++k){
           // or c[i][j] += a[i][k]*b[k][j];
           c[idx] += a[id(i,k)] * b[id(k,j)];
+          //out <<"k"<<k<<',';
         }
-       // out << "("<<i<<","<<j<<")\t";//You can observe that (i,j) are executed out of order.
+        out << "("<<i<<","<<j<<")\t";//You can observe that (i,j) are executed out of order.
       });
 
     });

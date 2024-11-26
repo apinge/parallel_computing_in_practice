@@ -7,6 +7,10 @@ Our source code is based on the following repository, with additional modificati
 - [sycl-workshop](https://github.com/ENCCS/sycl-workshop)
 - [data-parallel-CPP](https://github.com/Apress/data-parallel-CPP)
 
+## About Compiler Driver
+https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/developer-guide-reference/2024-1/invoke-the-compiler.html
+
+
 ## Configuring the IntelliSense Environment in VSCode
 
 * Installe `C/C++ Extension` (note: do not install `clangd` simultaneously)
@@ -44,3 +48,14 @@ Then you can get IntelliSense suggestions and class completions in VS Code.
 # SYCL with MKL
 https://www.alcf.anl.gov/sites/default/files/2024-06/oneMKL_Argonne_v01.pdf
 https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2024-1/onemkl-usage.html
+
+More examples can be found in C:\Program Files (x86)\Intel\oneAPI\mkl\latest\share\doc\mkl\examples
+
+
+# SYCL libraries
+https://github.com/codeplaysoftware/portBLAS
+https://github.com/codeplaysoftware/portDNN
+https://github.com/intel/xetla
+
+# Reference 
+https://www.ospray.org/documentation.html

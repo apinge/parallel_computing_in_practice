@@ -84,5 +84,16 @@ set_target_properties(${TARGET_NAME3} PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS}
 set_target_properties(${TARGET_NAME3} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
 
 
+set(SOURCE_FILE4 tiled-matmul.cpp)
+set(TARGET_NAME4 tiled-matmul)
+# To compile in a single command:
+#    icpx -fsycl <file>.cpp -o <file>
+# CMake executes:
+#    [compile] icpx -fsycl -o <file>.cpp.o -c <file>.cpp
+#    [link]    icpx -fsycl <file>.cpp.o -o <file>
+add_executable(${TARGET_NAME4} ${SOURCE_FILE4})
+set_target_properties(${TARGET_NAME4} PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS}")
+set_target_properties(${TARGET_NAME4} PROPERTIES LINK_FLAGS "${LINK_FLAGS}")
+
 
 
