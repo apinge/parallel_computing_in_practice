@@ -10,16 +10,20 @@
 #include <random>
 
 #include <sycl/sycl.hpp>
+#include <sycl/detail/kernel_properties.hpp>
 #include <cstdlib>
+#include <chrono>
 using namespace sycl;
 /*Sinple example of generate sycl cache build with icx */
+
+
 int main()
 {
    // set SYCL_CACHE_DIR
-#if defined(WIN32) // build with icx-cl /fsycl /DWIN32
+#if defined(_WIN64) // build with icx-cl /fsycl 
   _putenv_s("SYCL_CACHE_PERSISTENT","1");
   _putenv_s("SYCL_CACHE_DIR", "cache_dir");
-#elif defined( __GNUC__ ) //macro from clang e.g.  echo | clang++-12 -dM -E -
+#elif defined(__linux__) //macro from clang e.g.  echo | clang++-12 -dM -E -
   setenv("SYCL_CACHE_PERSISTENT","1");
   setenv("SYCL_CACHE_DIR", "cache_dir", 1);
 #endif 
@@ -53,6 +57,7 @@ int main()
   // the global range
   range local { 4, 4 };
 
+ const auto start{std::chrono::steady_clock::now()};
   // Fsubmit work to queue. You can use a command group if you prefer!
   Q.parallel_for(
      // use nd_range with appropriate global and local ranges
@@ -66,7 +71,11 @@ int main()
       }
      }).wait();
   // should we wait?
+  const auto end{std::chrono::steady_clock::now()};
+  const std::chrono::duration<double> elapsed_seconds{end - start};
+  std::cout << elapsed_seconds.count() << "s\n";
 
+  
   // Check that all outputs match serial execution
   bool passed = true;
   for (int j = 0; j < N; ++j) {
