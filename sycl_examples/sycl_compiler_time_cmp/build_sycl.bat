@@ -10,8 +10,8 @@ echo SYCL_CACHE_DIR set to %SYCL_CACHE_DIR%
 
 ::Compile the C++ file with SYCL support
 echo Compiling sycl_compile_kernel_time.cpp into sycl_compile_kernel_time.exe...
-echo icpx -fsycl sycl_compile_kernel_time.cpp -o sycl_compile_kernel_time.exe
-icpx -fsycl sycl_compile_kernel_time.cpp -o sycl_compile_kernel_time.exe
+echo icpx -fsycl -O3 sycl_compile_kernel_time.cpp -o sycl_compile_kernel_time.exe
+icpx -fsycl -O3 sycl_compile_kernel_time.cpp -o sycl_compile_kernel_time.exe
 
 ::Run the executable twice
 echo Running sycl_compile_kernel_time.exe for the first time...
