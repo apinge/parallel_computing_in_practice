@@ -1,6 +1,13 @@
-// ref https://github.com/intel/llvm/blob/sycl/sycl/test-e2e/KernelAndProgram/cache_env_vars.hpp#L85
-#define SYCL2020_DISABLE_DEPRECATION_WARNINGS
+﻿// ref https://github.com/xipingyan/hw_optimization/blob/main/intel_gpu/opencl_learn/CodeSamples/01_HelloOpenCL/src/main.cpp
+#include <stdio.h>
+#include <iostream>
+#include <CL/opencl.hpp>
+#include <stddef.h>
+#include <stdint.h>
+#include <chrono>
 
+
+std::string kernel_code = R"(
 #define INC1(x) ((x) = (x) + 1);
 
 #define INC10(x)                                                               \
@@ -51,53 +58,52 @@
   INC1000(x)                                                                   \
   INC1000(x)
 
-#define INC100000(x)                                                           \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)                                                                  \
-  INC10000(x)
-
-#include <chrono>
-#include <iostream>
-#include <sycl/detail/core.hpp>
-
-class Inc;
-template <class Kernel> void check_build_time(sycl::queue &q) {
-  auto start = std::chrono::steady_clock::now();
-  auto KB =
-      sycl::get_kernel_bundle<sycl::bundle_state::executable>(q.get_context());
-  auto end = std::chrono::steady_clock::now();
-
-  std::chrono::duration<double> elapsed_seconds = end - start;
-  std::cout << "elapsed build time: " << elapsed_seconds.count() << "s\n";
+// OpenCL Kernel
+__kernel void increment_kernel(__global int* data) {
+    int gid = get_global_id(0);
+    int value = data[gid];
+   
+    INC10000(value);
+    data[gid] = value;
+    
 }
-int main(int argc, char **argv) {
-  auto start = std::chrono::steady_clock::now();
-  // Test program and kernel APIs when building a kernel.
-  {
-    sycl::queue q;
-    check_build_time<Inc>(q);
+)";
 
-    int data = 0;
-    {
-      sycl::buffer<int, 1> buf(&data, sycl::range<1>(1));
-      sycl::range<1> NumOfWorkItems{buf.size()};
+int main() {
 
-      q.submit([&](sycl::handler &cgh) {
-        auto acc = buf.get_access<sycl::access::mode::read_write>(cgh);
-        cgh.parallel_for<class Inc>(
-            NumOfWorkItems, [=](sycl::id<1> WIid) { INC10000(acc[0]) });
-      });
-    }
-    // check_build_time<Inc>(q);
+    const int num_elements = 1;
+    std::vector<int> data(num_elements, 0);
+
+    cl::Platform platform = cl::Platform::getDefault();
+    cl::Device device = cl::Device::getDefault();
+     auto start = std::chrono::steady_clock::now();
+    cl::Context context({ device });
+    cl::CommandQueue queue(context, device);
+
+   
+    cl::Buffer buffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(int) * data.size(), data.data());
+
+  
+    cl::Program program(context, kernel_code);
+    program.build({ device });
+
+
+    cl::Kernel kernel(program, "increment_kernel");
+    kernel.setArg(0, buffer);
+
+
+    queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(num_elements));
+    queue.finish();
+
+
+    queue.enqueueReadBuffer(buffer, CL_TRUE, 0, sizeof(int) * data.size(), data.data());
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
     std::cout << "elapsed kernel time: " << elapsed_seconds.count() << "s\n";
-  }
+
+    for (int i = 0; i < data.size(); ++i) {
+        std::cout << "data[" << i << "] = " << data[i] << std::endl;
+    }
+
+    return 0;
 }

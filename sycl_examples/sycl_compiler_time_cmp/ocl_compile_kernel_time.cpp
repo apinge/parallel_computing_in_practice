@@ -110,14 +110,13 @@ int main()
 	std::cout << "== Construct program with source and context." << std::endl;
 	cl::Program program(context, sources);
 	auto start1 = std::chrono::steady_clock::now();
-	if (program.build({default_device}) != CL_SUCCESS)
-	{
-		std::cout << " Error building: " << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(default_device) << "\n";
-		exit(1);
-	}
+	program.build({default_device});
+
 	auto end1 = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds1 = end1 - start1;
 	std::cout << "elapsed build time: " << elapsed_seconds1.count() << "s\n";
+
+
 	// create buffers on the device
 	const int num_elements = 1;
 	std::vector<int> data(num_elements, 0);

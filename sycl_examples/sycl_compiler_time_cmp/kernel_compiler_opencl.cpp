@@ -168,17 +168,21 @@ void test_build_and_run() {
       << d.get_info<sycl::info::device::name>()
       << ", driver version "
       << d.get_info<sycl::info::device::driver_version>()
+      <<", backend "
+      <<  q.get_backend()
       << std::endl;
 
   bool ok =
       q.get_device().ext_oneapi_can_compile(syclex::source_language::opencl);
   if (!ok) {
-    std::cout << "Apparently this device does not support OpenCL C source "
-                 "kernel bundle extension: "
-              << q.get_device().get_info<sycl::info::device::name>()
-              << std::endl;
-    return;
+      std::cout << "Apparently this device does not support OpenCL C source "
+          "kernel bundle extension: "
+          << q.get_device().get_info<sycl::info::device::name>()
+          << std::endl;
+      return;
   }
+  else
+      std::cout << "Apparently this device can support OpenCL C source.";
 
   source_kb kbSrc = syclex::create_kernel_bundle_from_source(
       ctx, syclex::source_language::opencl, CLSource);
@@ -187,27 +191,30 @@ void test_build_and_run() {
 
   // compilation with props and devices
   std::string log;
-  std::vector<std::string> flags{"-cl-fast-relaxed-math",
-                                 "-cl-finite-math-only"};
+  //std::vector<std::string> flags{"-cl-fast-relaxed-math",
+   //                              "-cl-finite-math-only"};
+  std::vector<std::string> flags;
   std::vector<sycl::device> devs = kbSrc.get_devices();
   sycl::context ctxRes = kbSrc.get_context();
   assert(ctxRes == ctx);
   sycl::backend beRes = kbSrc.get_backend();
   assert(beRes == ctx.get_backend());
-
+  auto start = std::chrono::steady_clock::now();
   exe_kb kbExe2 = syclex::build(
       kbSrc, devs,
       syclex::properties{syclex::build_options{flags}, syclex::save_log{&log}});
+  auto end = std::chrono::steady_clock::now();
+  std::chrono::duration<double> elapsed_seconds = end - start;
+  std::cout << "elapsed build time: " << elapsed_seconds.count() << "s\n";
 
   bool hasMyKernel = kbExe2.ext_oneapi_has_kernel("increment_kernel");
-  //bool hasHerKernel = kbExe2.ext_oneapi_has_kernel("her_kernel");
+
   bool notExistKernel = kbExe2.ext_oneapi_has_kernel("not_exist");
   assert(hasMyKernel && "increment_kernel should exist, but doesn't");
-  //assert(hasHerKernel && "her_kernel should exist, but doesn't");
   assert(!notExistKernel && "non-existing kernel should NOT exist, but does?");
   std::cout << std::boolalpha << hasMyKernel << ' '  << notExistKernel << std::endl;
   sycl::kernel my_kernel = kbExe2.ext_oneapi_get_kernel("increment_kernel");
-  //sycl::kernel her_kernel = kbExe2.ext_oneapi_get_kernel("her_kernel");
+
 
   auto my_num_args = my_kernel.get_info<sycl::info::kernel::num_args>();
   assert(my_num_args == 1 && "increment_kernel should take 1 args");
