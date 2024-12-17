@@ -7,6 +7,8 @@ set SYCL_CACHE_PERSISTENT=1
 echo SYCL_CACHE_PERSISTENT set to %SYCL_CACHE_PERSISTENT%
 set SYCL_CACHE_DIR=cache_dir
 echo SYCL_CACHE_DIR set to %SYCL_CACHE_DIR%
+set NEO_CACHE_DIR=cache_dir
+echo NEO_CACHE_DIR set to %NEO_CACHE_DIR%
 
 ::Compile the C++ file with SYCL support
 echo Compiling kernel_compiler_opencl.cpp into kernel_compiler_opencl.exe...
