@@ -1,4 +1,5 @@
-# Interoperability of SYCL Built Libraries with Other Compilers
+# Interoperability of Libraries Built with ICX -fsycl and Other Compilers
+
 ## Install SYCL runtime 
 Besides installing the oneAPI package, you can also install the SYCL runtime separately.
 https://www.intel.com/content/www/us/en/developer/articles/tool/compilers-redistributable-libraries-by-version.html
