@@ -4,6 +4,8 @@
 Besides installing the oneAPI package, you can also install the SYCL runtime separately.
 https://www.intel.com/content/www/us/en/developer/articles/tool/compilers-redistributable-libraries-by-version.html
 
+For Linux, you can refer to [intel/oneapi-runtime dockerhub](https://hub.docker.com/r/intel/oneapi-runtime), e.g. https://github.com/intel/oneapi-containers/blob/master/images/docker/runtime/Dockerfile.ubuntu-24.04
+
 
 ## Use SYCL Shared Library With Third-Party Applications
 
