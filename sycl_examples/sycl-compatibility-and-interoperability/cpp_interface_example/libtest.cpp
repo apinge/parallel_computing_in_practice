@@ -20,7 +20,7 @@ extern "C" int vector_add_c(int *a, int *b, int *c, unsigned long vector_len) {
         sycl::buffer<int, 1> bufferA(a, numOfItems);
         sycl::buffer<int, 1> bufferB(b, numOfItems);
         sycl::buffer<int, 1> bufferC(c, numOfItems);
-        // 在此可以添加 SYCL 计算逻辑，例如：
+        // Call SYCL Kernel
         VectorAddKernel(q, bufferA, bufferB, bufferC, vector_len);
         
     } catch (exception const &e) {
@@ -43,7 +43,7 @@ int vector_add_cpp(const std::vector<int>& a, const std::vector<int>& b, std::ve
         sycl::buffer<int, 1> bufferA(a.data(), numOfItems);
         sycl::buffer<int, 1> bufferB(b.data(), numOfItems);
         sycl::buffer<int, 1> bufferC(c.data(), numOfItems);
-        // 在此可以添加 SYCL 计算逻辑，例如：
+        // Call SYCL Kernel
         VectorAddKernel(q, bufferA, bufferB, bufferC, vector_len);
         
     } catch (exception const &e) {
