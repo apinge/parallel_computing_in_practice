@@ -14,7 +14,7 @@ To build shared libraries containing SYCL code for use in host applications (com
 
 ### C++ ABI compability 
 
-We need to consider the compatibility of the C++ API when using the C++ API built with ICX in applications compiled with MSVC or GCC.
+We need to consider the C++ ABI compatibility when exposing the C++ interface in the library, while the host code is compiled with MSVC or GCC.
 #### MSVC Compatibility
 According to [Microsoft Compatibility](https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/developer-guide-reference/2025-0/microsoft-compatibility.html)
 > The Intel® oneAPI DPC++/C++ Compiler is fully source- and binary-compatible (native code only) with Microsoft Visual C++ (MSVC). You can debug binaries built with the Intel® oneAPI DPC++/C++ Compiler from within the Microsoft Visual Studio environment.
