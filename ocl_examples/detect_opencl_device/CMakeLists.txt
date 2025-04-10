@@ -14,7 +14,7 @@ include_directories("${OPENCL_SDK_PATH}/include/CL")
 link_directories("${OPENCL_SDK_PATH}/lib")
 
 
-add_executable(OpenCLExample detect_opencl_device.c) 
+add_executable(OpenCLExample detect_opencl_devices.c) 
 
 
 target_link_libraries(OpenCLExample OpenCL)
